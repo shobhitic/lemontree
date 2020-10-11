@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Lemontree
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      %a.navbar-brand{ href: '/' } LemonTree
+      %button.navbar-toggler{ type: "button", data: {toggle: "collapse", target: "#navbarSupportedContent" }, aria: { controls: "navbarSupportedContent", expanded: "false", label: "Toggle navigation"} }
+        %span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarSupportedContent
+        %ul.navbar-nav.mr-auto
+          - if user_signed_in?
+            %li.nav-item
+              = link_to "Links", links_path, class: 'nav-link'
+            %li.nav-item
+              = link_to "Edit your Profile", edit_user_registration_path, class: 'nav-link'
+            %li.nav-item
+              = link_to "Sign Out", destroy_user_session_path, class: 'nav-link', method: :delete
+
+
+    - if notice
+      %p.alert.alert-success= notice
+    - if alert
+      %p.alert.alert-danger= alert
+    .container
+      = yield
